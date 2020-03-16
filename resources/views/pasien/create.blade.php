@@ -1,0 +1,118 @@
+@extends('layouts.master')
+@section('content')
+<div class="main">
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Tambag Data</h3>
+                            <div class="right">
+                                </button>
+                                <button type="button" class="btn" data-toggle="modal"
+                                    data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i></button>
+                            </div>
+                        </div>
+                        
+@section('content1')
+@if(session('sukses'))
+<div class="alert alert-success" role="alert">
+    {{session('sukses')}}
+</div>
+@endif
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Data Pasien</h1>
+    </div>
+    <div class="col-lg-12">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+            Tambah Data Pasien
+        </button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nama</th>
+                <th scope="col">Alamat</th>
+                <th scope="col">Telepon</th>
+                <th scope="col">Jenis Kelamin</th>
+                <th scope="col">Foto</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($pasien as $row)
+            <tr>
+                <td>{{$row->nama}}</td>
+                <td>{{$row->alamat}}</td>
+                <td>{{$row->telepon}}</td>
+                <td>{{$row->jenis_kelamin}}</td>
+                <td>
+                    <img src="/foto/{{$row->foto}}" alt="foto" height="100px">
+                </td>
+                <td>
+                    <a href="/pasien/{{$row->id}}/edit" class="btn btn-success btn-sm">Edit</a>
+                    <a href="/pasien/{{$row->id}}/destroy" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Yakin Akun Ini Dihapus?')">Delete</a>
+                    @csrf
+                    @method('DELETE')
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                
+            </div>
+            <div class="modal-body">
+                <form action="/pasien/create" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" id="nama" placeholder="nama" name="nama">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat">Alamat</label>
+                        <textarea name="alamat" id="alamat" rows="3" class="form-control"
+                            placeholder="alamat"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="telepon">Telapon</label>
+                        <input type="text" class="form-control" id="telepon" placeholder="telepon" name="telepon">
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Pilih Jenis Kelamin</label>
+                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <input type="file" class="form-control" id="foto" name="foto">
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endsection
