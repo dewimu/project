@@ -7,6 +7,7 @@ use App\riwayatPasien;
 use App\Dokter;
 Use App\Pasien;
 use App\Status;
+use App\rawatInap;
 
 class riwayatPasienController extends Controller
 {
@@ -15,6 +16,7 @@ class riwayatPasienController extends Controller
     $riwayatPasien = riwayatPasien::with('pasien')->orderBy('created_at', 'DESC')->paginate(10);
     $riwayatPasien = riwayatPasien::with('dokter')->orderBy('created_at', 'DESC')->paginate(10);
     $riwayatPasien = riwayatPasien::with('status')->orderBy('created_at', 'DESC')->paginate(10);
+    $riwayatPasien = riwayatPasien::with('rawatInap')->orderBy('created_at', 'DESC')->paginate(10);
         return view('riwayatPasien/index', compact('riwayatPasien'));
     }
 
@@ -23,7 +25,8 @@ class riwayatPasienController extends Controller
     $pasien = Pasien::orderBy('nama', 'ASC')->get();
     $dokter = Dokter::orderBy('nama', 'ASC')->get();
     $status = Status::orderBy('nama', 'ASC')->get();
-    return view('riwayatPasien/create', compact('pasien', 'dokter', 'status'));
+    $rawatInap = rawatInap::orderBy('no_kamar', 'ASC')->get();
+    return view('riwayatPasien/create', compact('pasien', 'dokter', 'status', 'rawatInap'));
     }
 
     public function store(Request $request)
@@ -34,17 +37,28 @@ class riwayatPasienController extends Controller
         'id_dokter' => 'required|exists:dokters,id',
         'diagnosa_penyakit' => 'required|string|max:100',
         'id_status' => 'required|exists:statuses,id',
+
     ]);
 
-
         //Simpan data ke dalam table riwayat_Pasien
-        $riwayatPasien = riwayatPasien::create([
-            'id_pasien' => $request->id_pasien,
-            'id_dokter' => $request->id_dokter,
-            'diagnosa_penyakit' => $request->diagnosa_penyakit,
-            'id_status' => $request->id_status
+        if($request->id_status == 2){
+            $riwayatPasien = riwayatPasien::create([
+                'id_pasien' => $request->id_pasien,
+                'id_dokter' => $request->id_dokter,
+                'diagnosa_penyakit' => $request->diagnosa_penyakit,
+                'id_status' => $request->id_status,
+                'id_rawat_inap' => $request->id_rawat_inap,
+            ]);
+        }else{
+            $riwayatPasien = riwayatPasien::create([
+                'id_pasien' => $request->id_pasien,
+                'id_dokter' => $request->id_dokter,
+                'diagnosa_penyakit' => $request->diagnosa_penyakit,
+                'id_status' => $request->id_status,
+                'id_rawat_inap' => null,
+            ]);
+        }
 
-        ]);
 
         //jika berhasil direct ke riwayatPasien.index
         return redirect(route('listRiwayat'))
@@ -58,7 +72,8 @@ class riwayatPasienController extends Controller
     $pasien = Pasien::orderBy('nama', 'ASC')->get();
     $dokter = Dokter::orderBy('nama', 'ASC')->get();
     $status = Status::orderBy('nama', 'ASC')->get();
-    return view('riwayatPasien/edit', compact('riwayatPasien', 'pasien', 'dokter', 'status'));
+    $rawatInap = rawatInap::orderBy('no_kamar', 'ASC')->get();
+    return view('riwayatPasien/edit', compact('riwayatPasien', 'pasien', 'dokter', 'status', 'rawatInap'));
     }
 
     public function update(Request $request, $id)
@@ -69,6 +84,7 @@ class riwayatPasienController extends Controller
             'id_dokter' => 'required|exists:dokters,id',
             'diagnosa_penyakit' => 'required|string|max:100',
             'id_status' => 'required|exists:statuses,id',
+            'id_rawat_inap' => 'required|exists:rawat_inaps,id',
         ]);
             //perbaharui data di database
             $riwayatPasien = riwayatPasien::findOrFail($id);
@@ -76,7 +92,8 @@ class riwayatPasienController extends Controller
                 'id_pasien' => $request->id_pasien,
                 'id_dokter' => $request->id_dokter,
                 'diagnosa_penyakit' => $request->diagnosa_penyakit,
-                'id_status' => $request->id_status
+                'id_status' => $request->id_status,
+                'id_rawat_inap' => $request->id_rawat_inap,
             ]);
             return redirect(route('listRiwayat'))
                 ->with(['success' => '<strong>' .$riwayatPasien->nama . '</strong> Diperbaharui']);

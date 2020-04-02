@@ -8,8 +8,8 @@ class PasienController extends Controller
 {
     public function index(Request $request)
     {
-            $pasien = Pasien::get();
-        return view('pasien.index', compact('pasien'));
+        $pasien = Pasien::get();
+        return view('pasien/index', compact('pasien'));
     }
 
     public function create(Request $request)
@@ -33,7 +33,7 @@ class PasienController extends Controller
 
         $pasien->save();
 
-        return redirect()->route('pasien.index');
+        return redirect()->route('listPasien');
     }
 
     public function edit($id)

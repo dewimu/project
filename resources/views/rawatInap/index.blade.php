@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Perawat</h1>
+                    <h1 class="m-0 text-dark">Rawat Inap</h1>
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-12">
 
-                    <a href="{{('perawat/create') }}" class="btn btn-primary btn-sm">
+                    <a href="{{('rawatInap/create') }}" class="btn btn-primary btn-sm">
                         Tambah
                     </a>
 
@@ -24,32 +24,24 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Dokter</th>
+                                    <th>No Kamar</th>
+                                    <th>Nama Perwat</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($perawat as $row)
+                                @foreach ($rawatInap as $row)
                                 <tr>
-                                    <td>{{$row->nama}}</td>
-                                    <td>{{$row->jenis_kelamin}}</td>
-                                    <td>{{$row->getDoctor($row->id_dokter)->nama}}</td>
+                                    <td>{{ $row->no_kamar }}</td>
+                                    <td>{{$row->getPerawat($row->id_perawat)->nama}}</td>
+                                    <td>{{$row->getStatus($row->id_status)->nama}}</td>
                                     <td>
-                                        @if(Auth::user()->id_role == '1')
-                                        <a href="/admin/perawat/{{$row->id}}/edit"
-                                            class="btn btn-success btn-sm">Edit</a>
-                                        <a href="/admin/perawat/{{$row->id}}/destroy" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Yakin Akun Ini Dihapus?')">Delete</a>
-                                        @endif
 
-                                        @if(Auth::user()->id_role =='2')
-                                        <a href="/dokter/perawat/{{$row->id}}/edit"
-                                            class="btn btn-success btn-sm">Edit</a>
-                                        <a href="/dokter/perawat/{{$row->id}}/destroy" class="btn btn-danger btn-sm"
+                                        <a href="/rawatInap/{{$row->id}}/edit" class="btn btn-success btn-sm">Edit</a>
+                                        <a href="/rawatInap/{{$row->id}}/destroy" class="btn btn-danger btn-sm"
                                             onclick="return confirm('Yakin Akun Ini Dihapus?')">Delete</a>
-                                        @endif
+
                                         @csrf
                                         @method('DELETE')
                                     </td>
@@ -59,7 +51,7 @@
                         </table>
 
                         <div class="float-right">
-                            {!! $perawat->links() !!}
+                            {!! $rawatInap->links() !!}
                         </div>
                     </div>
                     @slot('footer')

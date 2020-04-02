@@ -78,4 +78,3 @@ class PerawatController extends Controller
         return redirect('/perawat')->with('sukses', 'data berhasil dihapus');
          }
 }
-

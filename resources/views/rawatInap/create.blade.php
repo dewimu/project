@@ -15,31 +15,35 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{route('createPerawat')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('createRawat')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="">Nama</label>
-                            <input type="text" name="nama" required
-                                class="form-control {{ $errors->has('nama') ? 'is-invalid':'' }}">
-                            <p class="text-danger">{{ $errors->first('nama') }}</p>
+                            <label for="">No Kamar</label>
+                            <input type="text" name="no_kamar" required
+                                class="form-control {{ $errors->has('no_kamar') ? 'is-invalid':'' }}">
+                            <p class="text-danger">{{ $errors->first('no_kamar') }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="jenis_kelamin">Pilih Jenis Kelmain</label>
-                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
-                                <option value="Laki-Laki">Laki-Laki</option>
-                                <option value="Perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Dokter</label>
-                            <select name="id_dokter" id="id_dokter" required
-                                class="form-control {{ $errors->has('id_dokter') ? 'is-invalid':'' }}">
+                            <label for="">Nama Perawat</label>
+                            <select name="id_perawat" id="id_perawat" required
+                                class="form-control {{ $errors->has('id_perawat') ? 'is-invalid':'' }}">
                                 <option value="">Pilih</option>
-                                @foreach ($dokter as $row)
+                                @foreach ($perawat as $row)
                                 <option value="{{ $row->id }}">{{ ucfirst($row->nama) }}</option>
                                 @endforeach
                             </select>
-                            <p class="text-danger">{{ $errors->first('id_dokter') }}</p>
+                            <p class="text-danger">{{ $errors->first('id_perawat') }}</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Status</label>
+                            <select name="id_status" id="id_status" required
+                                class="form-control {{ $errors->has('id_status') ? 'is-invalid':'' }}">
+                                <option value="">Pilih</option>
+                                @foreach ($status as $row)
+                                <option value="{{ $row->id }}">{{ ucfirst($row->nama) }}</option>
+                                @endforeach
+                            </select>
+                            <p class="text-danger">{{ $errors->first('id_status') }}</p>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary btn-sm">

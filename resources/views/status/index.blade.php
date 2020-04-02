@@ -10,14 +10,15 @@
                             <h3 class="panel-title">Status</h3>
                             <div class="right">
 
-                                <button type="button" class="btn" data-toggle="modal"
-                                    data-target="#exampleModal"><i class="lnr lnr-plus-circle"></button>
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i
+                                        class="lnr lnr-plus-circle"></button>
                             </div>
                         </div>
 
                         <table class="table table-hover">
                             <thead>
-                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldokter">Tambah Data</button>  </td>
+                                <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#modaldokter">Tambah Data</button> </td>
                                 <tr>
                                     <th scope="col">Nama</th>
                                     <th>Aksi</th>
@@ -70,49 +71,49 @@
             </div>
         </div>
     </div>
-@stop
+    @stop
 
 
 
-@section('content1')
-@if(session('sukses'))
-<div class="alert alert-success" role="alert">
-    {{session('sukses')}}
-</div>
-@endif
-<div class="row">
-    <div class="col-lg-12">
-        <h1>Status</h1>
+    @section('content1')
+    @if(session('sukses'))
+    <div class="alert alert-success" role="alert">
+        {{session('sukses')}}
     </div>
-    <div class="col-lg-12">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
-            Tambah Data Status
-        </button>
+    @endif
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Status</h1>
+        </div>
+        <div class="col-lg-12">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+                Tambah Data Status
+            </button>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($status as $row)
+                <tr>
+                    <td>{{$row->nama}}</td>
+                    <td>
+                        <a href="/status/{{$row->id}}/edit" class="btn btn-success btn-sm">Edit</a>
+                        <a href="/status/{{$row->id}}/destroy" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Yakin Akun Ini Dihapus?')">Delete</a>
+                        @csrf
+                        @method('DELETE')
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Nama</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($status as $row)
-            <tr>
-                <td>{{$row->nama}}</td>
-                <td>
-                    <a href="/status/{{$row->id}}/edit" class="btn btn-success btn-sm">Edit</a>
-                    <a href="/status/{{$row->id}}/destroy" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Yakin Akun Ini Dihapus?')">Delete</a>
-                    @csrf
-                    @method('DELETE')
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
 </div>
 
 

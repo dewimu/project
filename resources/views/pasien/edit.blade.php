@@ -8,7 +8,8 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <div class="panel-body">
-                                <form action="/pasien/{{$pasien->id}}/update" method="POST" enctype="multipart/form-data">
+                                <form action="/pasien/{{$pasien->id}}/update" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label for="nama">Nama</label>
@@ -22,14 +23,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="telepon">Telepon</label>
-                                        <input name="telepon" type="text" class="form-control" id="telepon" placeholder="telepon"
-                                            value="{{$pasien->telepon}}">
+                                        <input name="telepon" type="text" class="form-control" id="telepon"
+                                            placeholder="telepon" value="{{$pasien->telepon}}">
                                     </div>
                                     <div class="form-group">
                                         <label for="jenis_kelamin">Jenis Kelamin</label>
                                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
-                                            <option value="Laki-Laki" @if($pasien->jenis_kelamin == "Laki-Laki") selected @endif>Lali-Laki</option>
-                                            <option value="Perempuan" @if($pasien->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option>
+                                            <option value="Laki-Laki" @if($pasien->jenis_kelamin == "Laki-Laki")
+                                                selected @endif>Lali-Laki</option>
+                                            <option value="Perempuan" @if($pasien->jenis_kelamin == "Perempuan")
+                                                selected @endif>Perempuan</option>
                                         </select>
                                     </div>
                                     <img src="{{asset('foto/'.$pasien->foto)}}" height="100px" alt="">
@@ -39,7 +42,7 @@
 
                                         <p class="help-block">Masukkan foto</p>
                                     </div>
-                                        <button type="submit" class="btn btn-success">Update</button>
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -93,7 +96,7 @@
 
                 <p class="help-block">Masukkan foto</p>
             </div>
-                <button type="submit" class="btn btn-info">Update</button>
+            <button type="submit" class="btn btn-info">Update</button>
         </form>
     </div>
 </div>

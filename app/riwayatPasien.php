@@ -9,7 +9,7 @@ class riwayatPasien extends Model
 
     protected $guarded = [];
 
-    protected $fillable= ['id_pasien', 'id_dokter', 'diagnosa_penyakit', 'id_status'];
+    protected $fillable= ['id_pasien', 'id_dokter', 'diagnosa_penyakit', 'id_status','id_rawat_inap'];
 
     public function dokter()
     {
@@ -38,6 +38,17 @@ class riwayatPasien extends Model
 
     public function getStatus($id){
         $data = Status::where('id',$id)->first();
+        return $data;
+    }
+
+
+    public function rawatInap()
+    {
+        return $this->belongsTo(rawatInap::class);
+    }
+
+    public function getRawat($id){
+        $data = rawatInap::where('id',$id)->first();
         return $data;
     }
 }

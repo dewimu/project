@@ -9,15 +9,16 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Data Pasien</h3>
                             <div class="right">
-                              
-                                <button type="button" class="btn" data-toggle="modal"
-                                    data-target="#exampleModal"><i class="lnr lnr-plus-circle"></button>
+
+                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i
+                                        class="lnr lnr-plus-circle"></button>
                             </div>
                         </div>
 
                         <table class="table table-hover">
                             <thead>
-                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldokter">Tambah Data</button>  </td>
+                                <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#modaldokter">Tambah Data</button> </td>
                                 <tr>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Alamat</th>
@@ -35,7 +36,7 @@
                                     <td>{{$row->telepon}}</td>
                                     <td>{{$row->jenis_kelamin}}</td>
                                     <td>
-                                        <img src="/foto/{{$row->foto}}" alt="foto" height="100px">
+                                        <img src="{{asset('foto/'.$row->foto)}}" alt="foto" height="100px">
                                     </td>
                                     <td>
                                         <a href="/pasien/{{$row->id}}/edit" class="btn btn-success btn-sm">Edit</a>
@@ -66,7 +67,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/pasien/create" method="POST">
+                <form action="{{route('create.pasien')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="nama">Nama</label>
@@ -101,8 +102,4 @@
             </div>
         </div>
     </div>
-@stop
-
-
-
-
+    @stop

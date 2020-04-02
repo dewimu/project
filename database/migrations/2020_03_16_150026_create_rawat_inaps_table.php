@@ -17,6 +17,7 @@ class CreateRawatInapsTable extends Migration
             $table->Increments('id');
             $table->string('no_kamar');
             $table->integer('id_perawat');
+            $table->integer('id_status');
             $table->timestamps();
         });
     }

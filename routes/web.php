@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    route::get('/dashboard');
+    Route::get('/kamar', 'rawatInapController@select_box')->name('select_kamar');
 
     Route::get('/', function () {
         return view('home');
@@ -51,11 +53,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-        Route::get('/pasien', 'PasienController@index')->name('pasien.index');
-        Route::post('/pasien/create', 'PasienController@create')->name('pasien.update');
+        Route::get('/pasien', 'PasienController@index')->name('listPasien');
+        Route::post('/pasien/create', 'PasienController@store')->name('create.pasien');
         Route::get('/pasien/{id}/edit', 'PasienController@edit')->name('pasien.edit');
         Route::post('/pasien/{id}/update', 'PasienController@update')->name('pasien.update');
-        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('pasien.index');
+        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('deletePasien');
 
 
     });
@@ -64,11 +66,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['Perawat']], function(){
 
-        Route::get('/pasien', 'PasienController@index')->name('pasien.index');
-        Route::post('/pasien/create', 'PasienController@create')->name('pasien.update');
+        Route::get('/pasien', 'PasienController@index')->name('listPasien');
+        Route::post('/pasien/create', 'PasienController@store')->name('create.pasien');
         Route::get('/pasien/{id}/edit', 'PasienController@edit')->name('pasien.edit');
         Route::post('/pasien/{id}/update', 'PasienController@update')->name('pasien.update');
-        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('pasien.index');
+        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('deletePasien');
+
 
 
         Route::get('/status', 'StatusController@index')->name('status.index');
@@ -76,6 +79,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/status/{id}/edit', 'StatusController@edit')->name('status.edit');
         Route::post('/status/{id}/update', 'StatusController@update')->name('status.update');
         Route::get('/status/{id}/destroy', 'StatusController@destroy')->name('status.index');
+
+        Route::get('/rawatInap', 'rawatInapController@index')->name('listRawat');
+        Route::get('/rawatInap/create', 'rawatInapController@create');
+        Route::post('/rawatInap/create', 'rawatInapController@store')->name('createRawat');
+        Route::get('/rawatInap/{id}/edit', 'rawatInapController@edit')->name('editRawat');
+        Route::post('/rawatInap/{id}/update', 'rawatInapController@update')->name('updateRawat');
+        Route::get('/rawatInap/{id}/destroy', 'rawatInapController@destroy')->name('deleteRawat');
+
 
     });
 
@@ -90,11 +101,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/perawat/{id}/destroy', 'PerawatController@destroy')->name('deletePerawat');
 
 
-        Route::get('/pasien', 'PasienController@index')->name('pasien.index');
-        Route::post('/pasien/create', 'PasienController@create')->name('pasien.update');
+        Route::get('/pasien', 'PasienController@index')->name('listPasien');
+        Route::post('/pasien/create', 'PasienController@store')->name('create.pasien');
         Route::get('/pasien/{id}/edit', 'PasienController@edit')->name('pasien.edit');
         Route::post('/pasien/{id}/update', 'PasienController@update')->name('pasien.update');
-        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('pasien.index');
+        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('deletePasien');
+
+
+
 
 
     });
@@ -103,11 +117,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['dokterOrPerawat']], function(){
 
-        Route::get('/pasien', 'PasienController@index')->name('pasien.index');
-        Route::post('/pasien/create', 'PasienController@create')->name('pasien.update');
+        Route::get('/pasien', 'PasienController@index')->name('listPasien');
+        Route::post('/pasien/create', 'PasienController@store')->name('create.pasien');
         Route::get('/pasien/{id}/edit', 'PasienController@edit')->name('pasien.edit');
         Route::post('/pasien/{id}/update', 'PasienController@update')->name('pasien.update');
-        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('pasien.index');
+        Route::get('/pasien/{id}/destroy', 'PasienController@destroy')->name('deletePasien');
+
 
 
 
@@ -126,6 +141,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/status/{id}/destroy', 'StatusController@destroy')->name('status.index');
 
 
+        Route::get('/rawatInap', 'rawatInapController@index')->name('listRawat');
+        Route::get('/rawatInap/create', 'rawatInapController@create');
+        Route::post('/rawatInap/create', 'rawatInapController@store')->name('createRawat');
+        Route::get('/rawatInap/{id}/edit', 'rawatInapController@edit')->name('editRawat');
+        Route::post('/rawatInap/{id}/update', 'rawatInapController@update')->name('updateRawat');
+        Route::get('/rawatInap/{id}/destroy', 'rawatInapController@destroy')->name('deleteRawat');
+
     });
 
 
@@ -136,10 +158,3 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 });
-
-
-
-
-
-
-
