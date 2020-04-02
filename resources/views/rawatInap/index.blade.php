@@ -25,7 +25,7 @@
                             <thead>
                                 <tr>
                                     <th>No Kamar</th>
-                                    <th>Nama Perwat</th>
+                                    <th>Nama Perawat</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
