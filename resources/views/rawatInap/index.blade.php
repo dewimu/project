@@ -24,7 +24,7 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>No Kamar</th>
+                                    <th>Kamar</th>
                                     <th>Nama Perawat</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
